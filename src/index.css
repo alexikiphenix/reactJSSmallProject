@@ -1,8 +1,14 @@
+*{
+  box-sizing: border-box;
+}
+
 .tweet-container
 {
   display: flex;  
   flex-wrap: wrap;
   gap: 15px;
+  width: 90%;
+  margin: auto;
 }
 
 
@@ -21,4 +27,13 @@
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.form-tweet fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 30px;
 }
