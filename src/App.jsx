@@ -1,25 +1,51 @@
 import { useState } from 'react';
 import Tweet from './components/Tweet';
 
+const DEFAULT_TWEETS = [
+  {
+    id: 1,
+    userName: "Doe",
+    content: "Je suis inconnu",
+    like: 10
+  },
+  {
+    id: 2,
+    userName: "Cormier",
+    content: "Craint par tout le monde",
+    like: 2500
+  },
+  {
+    id: 3,
+    userName: "Jones",
+    content: "Une exécution technique parfaite",
+    like: 2500
+  },
+  {
+    id: 4,
+    userName: "McGregor",
+    content: "star talentueuse",
+    like: 2900
+  },
+]
+
+
+
+
 function App() {
   let [tweets, setTweets] = useState(0);
-  let [userName, setUserName] = useState('marcus');
+  let [userName, setUserName] = useState(DEFAULT_TWEETS);
 
-  const addHyphen = () => 
-  {
-    setUserName('-'+userName+'-');
-  }
+  const tweetsList = DEFAULT_TWEETS.map(tweet => <Tweet key={tweet.id} 
+    userName={tweet.userName} 
+    content={tweet.content}
+    like={tweet.like}
+  />)
 
   return (
     <div>
-      <h1>Hello world</h1>
-        <button onClick={addHyphen}>Ajouter - </button>
+      <h1>Hello world</h1>        
       <div className="tweet-container">
-        <Tweet name={userName} content="Je suis inconnu" like={0} />
-        <Tweet name={userName} content="un méchant qui essaye d'être gentil" like={0} />
-        <Tweet name={userName} content="craint par tout le monde" like={0} />
-        <Tweet name={userName} content="une star charismatique" like={0} />
-     
+        {tweetsList}         
       </div>
     </div>
   )
