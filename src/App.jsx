@@ -32,20 +32,33 @@ const DEFAULT_TWEETS = [
 
 
 function App() {
-  let [tweets, setTweets] = useState(0);
-  let [userName, setUserName] = useState(DEFAULT_TWEETS);
+  let [tweets, setTweets] = useState(DEFAULT_TWEETS);
+  let [userName, setUserName] = useState("");
 
-  const tweetsList = DEFAULT_TWEETS.map(tweet => <Tweet key={tweet.id} 
-    userName={tweet.userName} 
-    content={tweet.content}
-    like={tweet.like}
-  />)
+  // const tweetsList = tweets.map(tweet => <Tweet key={tweet.id} 
+  //   userName={tweet.userName} 
+  //   content={tweet.content}
+  //   like={tweet.like}
+  // />)
 
   return (
     <div>
       <h1>Hello world</h1>        
       <div className="tweet-container">
-        {tweetsList}         
+        {
+          tweets.map((tweet) => {return(<Tweet key={tweet.id} 
+              userName={tweet.userName} 
+              content={tweet.content}
+              like={tweet.like}
+              onDelete={ ()=>{
+                  console.log("DELETE", tweet.id);  
+                }
+              }
+            />
+            )}
+          )
+        }
+             
       </div>
     </div>
   )

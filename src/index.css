@@ -8,9 +8,17 @@
 
 .tweet
 {
+  position: relative;
   width: fit-content;
   min-width: 310px;
   padding: 10px;
   background-color: rgb(232, 164, 30);
   border: 1px solid grey;
+}
+
+.tweet .btnDelete
+{
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
