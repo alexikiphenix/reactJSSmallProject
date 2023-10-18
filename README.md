@@ -1,5 +1,5 @@
 # React + Vite
-A small project my students must do to understand the basics 
+A small project my students must do to understand the basics of React.JS
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
