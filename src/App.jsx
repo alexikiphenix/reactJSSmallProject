@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Tweet from './components/Tweet';
+import TweetForm from './components/TweetForm';
+import TweetsList from './components/TweetsList';
 
 const DEFAULT_TWEETS = [
   {
@@ -46,66 +48,77 @@ const DEFAULT_TWEETS = [
 
 function App() {
   let [tweets, setTweets] = useState(DEFAULT_TWEETS);
-  
-  
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (tweet) => {    
+    // si event en paramètre :
+    // event.preventDefault();
+    // const userName = event.target.name.value;
+    // const content = event.target.content.value;
     
-    const userName = event.target.name.value;
-    const content = event.target.content.value;
 
-    const newTweet = {
+    const newTweet = {     
       id: (tweets[tweets.length-1]?.id+1) ?? 0,
-      userName,
-      content,
+      userName : tweet.userName,
+      content : tweet.content,
       like: 0
     }
 
-    addTweet(newTweet);
-    console.log({newTweet});
+    addTweet(newTweet);     
   }
-
   const addTweet = (tweet) => {
     setTweets([...tweets, tweet]);
   }
 
-  const onLike = (idTweet) => {
-      const tweetsUpdated = tweets.map(
-        (tweet) => 
-        {
-          if(tweet.id === idTweet)
-          {
-            tweet.like++
-          }
-          return tweet;
-        }   
-      )
-      console.log(tweetsUpdated);      
-      setTweets([...tweetsUpdated]);
+  /**
+   * Methode 1 avec map
+   * @param {*} idTweet 
+   */
+  // const onLike = (idTweet) => {
+  //     const tweetsUpdated = tweets.map(
+  //       (tweet) => 
+  //       {
+  //         if(tweet.id === idTweet)
+  //         {
+  //           tweet.like++
+  //         }
+  //         return tweet;
+  //       }   
+  //     )
+  //     console.log(tweetsUpdated);      
+  //     setTweets([...tweetsUpdated]);
+  // }
+
+
+  const onLike = (idTweet) =>
+  {
+    setTweets(current => 
+      {
+        const tweetsCopy = [...current];
+        
+        const likedTweet = tweetsCopy.find((tweet) => tweet.id === idTweet);        
+        likedTweet.like += 1;
+
+        return tweetsCopy;
+      }    
+    )
+    
   }
+  
   // const tweetsList = tweets.map(tweet => <Tweet key={tweet.id} 
   //   userName={tweet.userName} 
   //   content={tweet.content}
   //   like={tweet.like}
   // />)
   const onDelete = (tweetId) =>
-  {
-    console.log(tweetId);
+  {    
     setTweets((current) => current.filter(tweet => tweet.id !== tweetId));
   }
   return (
     <div>
       <h1>Hello world</h1>      
-      <form onSubmit={handleSubmit} className="form-tweet" action="">
-        <fieldset>
-          <legend>Ajouter un tweet</legend>
-          <input placeholder="nom" type="text" name="name" />  
-          <textarea placeholder="message" name="content" />
-          <button type="submit">Envoyer</button>
-        </fieldset>
-      </form>
-      <div className="tweet-container">
+      <TweetForm onSubmit={handleSubmit} />
+      <TweetsList tweets={tweets} onDelete={onDelete} onLike={onLike} />
+      {/* <div className="tweet-container">
         {
           tweets.map((tweet) => 
             {
@@ -129,7 +142,7 @@ function App() {
           )
         }
              
-      </div>
+      </div> */}
     </div>
   )
 }
